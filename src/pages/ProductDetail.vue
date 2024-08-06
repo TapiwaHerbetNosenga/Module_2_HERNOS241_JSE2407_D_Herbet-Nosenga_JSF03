@@ -2,9 +2,16 @@
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 
+/** Represents the product details fetched from the API. */
 const product = ref(null);
+
+/** The current route instance provided by Vue Router. */
 const route = useRoute();
 
+/**
+ * Fetches product details from the API based on the route parameter.
+ * Sets the `product` ref to the fetched data.
+ */
 onMounted(async () => {
     try {
         const productId = route.params.id;
@@ -16,6 +23,7 @@ onMounted(async () => {
     }
 });
 </script>
+
 <template>
     <div class="my-16">
         <div v-if="product" class="md:grid md:grid-cols-2 flex flex-col justify-center items-center">
@@ -31,16 +39,14 @@ onMounted(async () => {
                 </div>
                 <p class="m-1 w-fit border-sky-500 border-2 rounded-md text-white bg-sky-500 font-semibold p-1 hover:bg-sky-600 hover:border-sky-600">{{ product.category }}</p>
                 <p class="charcoal-text">{{ product.description }}</p>
-            
             </div>
-
-
         </div>
         <div v-else>
             <p class="text-red-700">Loading...</p>
         </div>
     </div>
 </template>
+
 <style>
 .Img {
     max-width: 80vw;
@@ -51,11 +57,11 @@ onMounted(async () => {
     color: #333333
 }
 
-.cart{
-    background-color: #8A2BE2 ;
+.cart {
+    background-color: #8A2BE2;
 }
 
-.wishlist{
-    background-color:#007BFF  ;
+.wishlist {
+    background-color: #007BFF;
 }
 </style>
