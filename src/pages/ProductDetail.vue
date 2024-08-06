@@ -27,10 +27,13 @@ onMounted(async () => {
 <template>
     <div class="my-16">
         <div v-if="product" class="md:grid md:grid-cols-2 flex flex-col justify-center items-center">
+          
+           
             <div class="p-2 bg-white rounded-lg">
                 <img class="Img" :src="product.image" alt="Product Image">
             </div>
             <div class="py-6 flex flex-col items-center ">
+        
                 <h2 class="charcoal-text xl:text-4xl md:text-2xl sm:text-xl font-bold">{{ product.title }}</h2>
                 <p class="charcoal-text">Price: R{{ product.price }}</p>
                 <div class="flex gap-2 justify-center">
