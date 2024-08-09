@@ -53,7 +53,9 @@ onMounted(async () => {
 <style>
 .Img {
     max-width: 80vw;
-    min-height: 60vw;
+    min-height: 40vw;
+    min-width: 20vw;
+    max-height: 80vw;
 }
 
 .charcoal-text {
