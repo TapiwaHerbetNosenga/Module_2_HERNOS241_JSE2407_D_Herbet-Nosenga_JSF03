@@ -1,13 +1,26 @@
 <script setup>
-import { getCart, updateCart, getUser, createCart} from '../../localstorage';
+import { getCart, updateCart, getUser, createCart } from '../../localstorage';
 import { useStore } from '../../store';
 import { ref, onMounted } from 'vue';
 
 const store = useStore();
 
+/**
+ * Indicates if the data is still loading.
+ * @type {Ref<boolean>}
+ */
 let loading = ref(true);
+
+/**
+ * List of items in the cart.
+ * @type {Ref<Array<Object>>}
+ */
 const items = ref([]);
 
+/**
+ * Fetches cart items from the API based on IDs stored in local storage.
+ * Updates the `items` ref with the fetched data and sets `loading` to false.
+ */
 const fetchCartItems = async () => {
     const cartSet = getCart(store.user);
     const cartArr = Array.from(cartSet);
@@ -24,6 +37,10 @@ const fetchCartItems = async () => {
     loading.value = false;
 };
 
+/**
+ * Removes an item from the cart and updates the local storage.
+ * @param {number} id - The ID of the item to remove.
+ */
 const removeItem = (id) => {
     let cartSet = getCart('cart');
     let cartArr = Array.from(cartSet);
@@ -33,6 +50,9 @@ const removeItem = (id) => {
     items.value = items.value.filter(item => item.id !== id);
 };
 
+/**
+ * Clears all items from the cart and updates the local storage.
+ */
 const clearCart = () => {
     updateCart('cart', new Set());
     items.value = [];
@@ -40,13 +60,11 @@ const clearCart = () => {
 
 onMounted(() => {
     const user = getUser('user');
- 
     const cart = getCart(user);
     if (!cart || cart.size === 0) {
-        createCart(user, new Set()); 
+        createCart(user, new Set());
     }
     fetchCartItems();
-
 });
 </script>
 
@@ -117,4 +135,3 @@ onMounted(() => {
     margin: 1rem auto;
 }
 </style>
-

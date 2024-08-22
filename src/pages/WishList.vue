@@ -2,9 +2,22 @@
 import { getList, updateList } from '../../localstorage';
 import { ref, onMounted } from 'vue';
 
+/**
+ * Indicates if the data is still loading.
+ * @type {Ref<boolean>}
+ */
 let loading = ref(true);
+
+/**
+ * List of items fetched from the API.
+ * @type {Ref<Array<Object>>}
+ */
 const items = ref([]);
 
+/**
+ * Fetches items from the API based on IDs stored in local storage.
+ * Updates the `items` ref with the fetched data and sets `loading` to false.
+ */
 const fetchListItems = async () => {
     const listSet = getList('list');
     const listArr = Array.from(listSet);
@@ -21,6 +34,10 @@ const fetchListItems = async () => {
     loading.value = false;
 };
 
+/**
+ * Removes an item from the list and updates the local storage.
+ * @param {number} id - The ID of the item to remove.
+ */
 const removeItem = (id) => {
     let listSet = getList('list');
     let listArr = Array.from(listSet);
@@ -41,9 +58,8 @@ onMounted(() => {
     </div>
     <div v-else class="sm:py-8 lg:max-h-[130rem] mx-auto my-6 pt-20 sm:my-3 sm:mt-5 grid gap-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none">
         <div v-for="item in items" :key="item.id" class="cards rounded-xl">
-          
-                <div class="flex flex-col justify-center items-center">
-                    <router-link :to="'/product-detail/' + item.id">
+            <div class="flex flex-col justify-center items-center">
+                <router-link :to="'/product-detail/' + item.id">
                     <img :src="item.image" alt="Product Image">
                     <h2 class="charcoal-text line-clamp-2 pl-1 pr-1 font-bold text-lg ml-2 mr-2 text-center">
                         {{ item.title }}
@@ -55,12 +71,10 @@ onMounted(() => {
                         {{ item.category }}
                     </p>
                 </router-link>
-                    <button  @click="removeItem(item.id)"
+                <button @click="removeItem(item.id)"
                         class="remove font-bold flex items-center justify-center text-sm m-2">Remove</button>
-                </div>
-                </div>
-          
-       
+            </div>
+        </div>
     </div>
 </template>
 

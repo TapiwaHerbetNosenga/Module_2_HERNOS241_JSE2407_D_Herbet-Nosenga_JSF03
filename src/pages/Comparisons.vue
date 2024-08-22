@@ -2,9 +2,19 @@
 import { getComparison, updateComparison } from '../../localstorage';
 import { ref, onMounted } from 'vue';
 
+/** Indicates whether the comparison items are currently being loaded. */
 let loading = ref(true);
+
+/** The list of comparison items fetched from the API. */
 const items = ref([]);
 
+/**
+ * Fetches items from the API based on the IDs stored in the comparison set.
+ * Updates the `items` ref with the fetched data and sets `loading` to false once done.
+ * @async
+ * @function
+ * @returns {Promise<void>} A promise that resolves when all items have been fetched.
+ */
 const fetchComparisonsItems = async () => {
     const comparisonSet = getComparison('compare');
     const comparisonArr = Array.from(comparisonSet);
@@ -21,6 +31,10 @@ const fetchComparisonsItems = async () => {
     loading.value = false;
 };
 
+/**
+ * Removes an item from the comparison set and updates the local list of items.
+ * @param {number} id - The ID of the item to be removed.
+ */
 const removeItem = (id) => {
     let comparisonSet = getComparison('comparison');
     let comparisonArr = Array.from(comparisonSet);
@@ -30,12 +44,18 @@ const removeItem = (id) => {
     items.value = items.value.filter(item => item.id !== id);
 }
 
+/** Fetches comparison items when the component is mounted. */
 onMounted(() => {
     fetchComparisonsItems();
 });
 
+/** Keeps track of which items should display their full text. */
 const showFullText = ref({});
 
+/**
+ * Toggles the display of full text for a given item.
+ * @param {number} id - The ID of the item whose text display is being toggled.
+ */
 const toggleText = (id) => {
     showFullText.value[id] = !showFullText.value[id];
 };

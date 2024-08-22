@@ -4,27 +4,36 @@ import { ref, onMounted } from 'vue';
 import { getCart, getList, updateCart, getComparison, updateComparison, getUser } from '../../localstorage';
 import { useStore } from '../../store';
 
-
 const store = useStore();
 const user = store.user;
 const product = ref(null);
 const route = useRoute();
 const limit = ref(false);
 
+/**
+ * Adds the current product to the user's cart.
+ */
 const addItem = () => {
     const cart = getCart(user);
     const productId = route.params.id;
-    cart.add(productId);  
+    cart.add(productId);
     updateCart(user, cart);
 };
 
+/**
+ * Adds the current product to the global wishlist.
+ */
 const addListItem = () => {
     const list = getList('list');
     const productId = route.params.id;
-    list.add(productId);  
+    list.add(productId);
     updateCart('list', list);
 };
 
+/**
+ * Adds the current product to the comparison list if the limit is not reached.
+ * Sets the limit to true if there are already 5 items in the comparison list.
+ */
 const addComparisonItem = () => {
     const compareSet = getComparison('compare');
     const compareArr = Array.from(compareSet);
@@ -32,10 +41,10 @@ const addComparisonItem = () => {
         limit.value = true;
         return;
     }
-    const comparison = getComparison('compare'); 
+    const comparison = getComparison('compare');
     const productId = route.params.id;
-    comparison.add(productId);  
-    updateComparison('compare', comparison); 
+    comparison.add(productId);
+    updateComparison('compare', comparison);
 };
 
 onMounted(async () => {
@@ -63,7 +72,7 @@ onMounted(async () => {
                     <button @click="addItem" class="cart">Add to Cart</button>
                     <button @click="addListItem" class="wishlist">Add to Wishlist</button>
                 </div>
-                <p class="category-tag m-1 w-fit  border-2 rounded-md text-white bg-sky-500 font-semibold p-1 hover:bg-sky-600 hover:border-sky-600">{{ product.category }}</p>
+                <p class="category-tag m-1 w-fit border-2 rounded-md text-white bg-sky-500 font-semibold p-1 hover:bg-sky-600 hover:border-sky-600">{{ product.category }}</p>
                 <p class="product-description">{{ product.description }}</p>
                 <button :disabled="limit" @click="addComparisonItem" class="wishlist">Compare Item</button>
             </div>

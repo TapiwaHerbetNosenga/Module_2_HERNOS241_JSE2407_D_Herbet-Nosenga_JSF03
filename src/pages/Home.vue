@@ -4,7 +4,6 @@ import { useStore } from '../../store';
 import Toolbar from '../components/Toolbar.vue';
 import { getToken } from '../../localstorage';
 
-
 /** Represents the global store instance. */
 const store = useStore();
 
@@ -57,7 +56,9 @@ const sortProducts = () => {
 /** Fetches products when the component is mounted. */
 onMounted(fetchProducts);
 
-/** Watches the filter and sort state and fetches products when they change. */
+/**
+ * Watches the filter and sort state and fetches products when they change.
+ */
 watch(
     [() => store.filter, () => store.sort],
     () => {
@@ -66,16 +67,6 @@ watch(
         fetchProducts();
     }
 );
-/*
-const jwt_decode = require('jwt-decode');
-
-
-const token = getToken('token');
-
-const decodedData = jwt_decode(token);
-
-
-console.log(decodedData);*/
 </script>
 
 <template>
@@ -84,7 +75,7 @@ console.log(decodedData);*/
         <div class="spinner"></div>
     </div>
     <div v-else class="sm:py-8 lg:max-h-[130rem] mx-auto my-6 pt-20 sm:my-3 sm:mt-5 grid gap-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none">
-        <div v-for="product in products" :key="product.id" class="cards rounded-xl  border-solid border-gray border-2">
+        <div v-for="product in products" :key="product.id" class="cards rounded-xl border-solid border-gray border-2">
             <router-link :to="'/product-detail/' + product.id">
                 <div class="flex flex-col justify-center items-center">
                     <img :src="product.image" alt="Product Image">

@@ -1,5 +1,19 @@
-# Vue 3 + Vite
+JSF4 VUE E commerce site
+- This project is an e-commerce site that fetches data from an api called fakestore api, it allows a user to log in using the fakestore api.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+To test project:
+1. clone or download the zip from this repo
+2. run npm i / npm install in the terminal/command line
+3. run npm run dev
+4. Test site
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+Technologies used:
+-HTML5
+-CSS3
+-Tailwind CSS
+-Vue 3
+-JavaScript
+-eslint
+
+Link to vercel site: https://module2hernos241jse2407dherbet-nosengajsf04-ah7jb5oxt.vercel.app/
+Link to youtube video: https://www.youtube.com/watch?v=8q_P3W0AKZo&ab_channel=TapiwaHerbetNosenga
