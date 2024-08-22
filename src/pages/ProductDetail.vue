@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
+import { getCart, getList,updateCart,  getComparison, updateComparison } from '../../localstorage';
 
 /** Represents the product details fetched from the API. */
 const product = ref(null);
@@ -12,6 +13,40 @@ const route = useRoute();
  * Fetches product details from the API based on the route parameter.
  * Sets the `product` ref to the fetched data.
  */
+
+ 
+
+ const addItem = () => {
+    const cart = getCart('cart');
+    const productId = route.params.id;
+    cart.add(productId);  
+    updateCart('cart', cart);
+};
+
+
+const addListItem = () => {
+    const list = getList('list');
+    const productId = route.params.id;
+    list.add(productId);  
+    updateCart('list', list);
+};
+
+const limit = ref(false)
+
+const addComparisonItem = () => {
+
+   const compareSet=getComparison('compare');
+   const compareArr = Array.from(compareSet);
+   if(compareArr.length >= 5){
+buttonStatus.value = true;
+    return;
+   }
+    const comparison = getComparison('compare'); 
+    const productId = route.params.id;
+    comparison.add(productId);  
+    updateComparison('compare', comparison); 
+};
+
 onMounted(async () => {
     try {
         const productId = route.params.id;
@@ -22,6 +57,10 @@ onMounted(async () => {
         console.error('Error fetching data:', error);
     }
 });
+
+
+
+
 </script>
 
 <template>
@@ -30,18 +69,19 @@ onMounted(async () => {
           
            
             <div class="p-2 bg-white rounded-lg">
-                <img class="Img" :src="product.image" alt="Product Image">
+                <img :src="product.image" class="Img" alt="Product Image">      
             </div>
             <div class="py-6 flex flex-col items-center ">
-        
+                
                 <h2 class="charcoal-text xl:text-4xl md:text-2xl sm:text-xl font-bold">{{ product.title }}</h2>
                 <p class="charcoal-text">Price: R{{ product.price }}</p>
                 <div class="flex gap-2 justify-center">
-                    <button class="cart ">Add to Cart</button>
-                    <button class="wishlist">Add to Wishlist</button>
+                    <button @click="addItem" class="cart ">Add to Cart</button>
+                    <button @click="addListItem" class="wishlist">Add to Wishlist</button>
                 </div>
                 <p class="m-1 w-fit border-sky-500 border-2 rounded-md text-white bg-sky-500 font-semibold p-1 hover:bg-sky-600 hover:border-sky-600">{{ product.category }}</p>
                 <p class="charcoal-text">{{ product.description }}</p>
+                <button  :disabled="limit" @click="addComparisonItem">Compare Item</button>
             </div>
         </div>
         <div v-else>
@@ -52,7 +92,7 @@ onMounted(async () => {
 
 <style>
 .Img {
-    max-width: 80vw;
+    max-width: 40vw;
     min-height: 40vw;
     min-width: 20vw;
     max-height: 80vw;
