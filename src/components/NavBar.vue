@@ -3,8 +3,8 @@
         <div class="navbar-container large-screen">
             <router-link to="/" class="font-semibold text-lg">Home</router-link>
             <ul class="navbar-links">
-                <li><router-link v-show="isLoggedIn" to="/log-in" class="font-semibold px-2 text-lg">Log In</router-link></li>
-                <li><button v-show="!isLoggedIn" @click="logOut" class="font-semibold px-2 text-lg">Log Out</button></li>
+                <li><router-link v-show="!isLoggedIn" to="/log-in" class="font-semibold px-2 text-lg">Log In</router-link></li>
+                <li><button v-show="isLoggedIn" @click="logOut" class="font-semibold px-2 text-lg">Log Out</button></li>
                 <li><router-link to="/shopping-cart" class="font-semibold px-2 text-lg">Shopping Cart</router-link></li>
                 <li><router-link to="/wish-list" class="font-semibold px-2 text-lg">Wish List</router-link></li>
                 <li><router-link to="/comparisons" class="font-semibold px-2 text-lg">Compare Items</router-link></li>
@@ -33,23 +33,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { getToken, removeToken } from '../../localstorage';
 import { useStore } from '../../store';
 
 const menuOpen = ref(false);
+const store = useStore();
+const isLoggedIn = ref(!!getToken(store.user)); 
 
 const toggleMenu = () => {
     menuOpen.value = !menuOpen.value;
 };
 
-const store = useStore();
-const isLoggedIn = ref(getToken(store.user));
-
 function logOut() {
-    removeToken(store.user);
-    isLoggedIn.value = false; 
+    removeToken(store.user);  
+    store.user = null;        
+    isLoggedIn.value = false;  
+    console.log("User logged out successfully");
 }
+
+
+watchEffect(() => {
+    isLoggedIn.value = !!getToken(store.user);
+});
 </script>
 
 <style>
@@ -156,6 +162,7 @@ function logOut() {
 
     .navbar-dropdown.is-active {
         right: 0;
+   
     }
     
     .large-screen {

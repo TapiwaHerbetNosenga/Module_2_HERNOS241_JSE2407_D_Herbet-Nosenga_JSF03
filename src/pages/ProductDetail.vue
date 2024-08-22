@@ -1,17 +1,21 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
-import { getCart, getList, updateCart, getComparison, updateComparison } from '../../localstorage';
+import { getCart, getList, updateCart, getComparison, updateComparison, getUser } from '../../localstorage';
+import { useStore } from '../../store';
 
+
+const store = useStore();
+const user = store.user;
 const product = ref(null);
 const route = useRoute();
 const limit = ref(false);
 
 const addItem = () => {
-    const cart = getCart('cart');
+    const cart = getCart(user);
     const productId = route.params.id;
     cart.add(productId);  
-    updateCart('cart', cart);
+    updateCart(user, cart);
 };
 
 const addListItem = () => {

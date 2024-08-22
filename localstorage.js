@@ -1,18 +1,24 @@
-//this local storage function saves the token response in from a user log in to local storage
 export const setToken = (key, value)=> {
     localStorage.setItem(key, JSON.stringify(value));
 } 
 
-//this local storage function gets a token stored in local storage if it exists and returns null if it doesnt find a variable that matches
 export const getToken = (key)=> {
- const value = localStorage.getItem(key);
- return value ? JSON.parse(value) : null;
-} 
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+   } 
 
 export const removeToken = (key)=>{
     localStorage.removeItem(key);
 }
 
+export const  setUserName = (key, value)=>{
+localStorage.setItem(key, JSON.stringify(value))
+}
+
+export const getUser =(key)=>{
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+}
 
   
 export const createCart = (key, value) =>{
@@ -96,4 +102,3 @@ export const getTheme =(key)=>{
  const parsedValue = JSON.parse(value);
  return parsedValue;
 }
-

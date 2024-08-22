@@ -25,7 +25,7 @@ onMounted(() => {
 
 <template>
   <div :class="theme + '-theme'">
-      <Layout />
+   
       <router-view />
       <button @click="toggleTheme" class="theme-button">Toggle Theme</button>
   </div>

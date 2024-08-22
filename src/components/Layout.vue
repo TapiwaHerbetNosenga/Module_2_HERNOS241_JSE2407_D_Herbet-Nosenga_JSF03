@@ -8,11 +8,7 @@ const store = useStore();
 
 onMounted(() => {
    
-    const cart = getCart('cart');
-    if (!cart || cart.size === 0) {
-        createCart('cart', new Set()); 
-    }
-
+  
   
     const list = getList('list');
     if (!list || list.size === 0) {

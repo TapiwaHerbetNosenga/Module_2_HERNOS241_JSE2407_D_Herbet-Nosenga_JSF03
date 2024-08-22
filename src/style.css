@@ -13,7 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Base theme (light) */
+
 .light-theme {
   color: #1a1a1a;
   background-color: #ffffff;
@@ -45,7 +45,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  color: #FF4500;
+  color: whitesmoke;
   cursor: pointer;
   transition: border-color 0.25s;
 }
