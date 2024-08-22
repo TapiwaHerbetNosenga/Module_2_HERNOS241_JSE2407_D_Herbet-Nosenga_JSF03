@@ -20,7 +20,7 @@ const loading = ref(true);
 
 /**
  * Fetches products from the API based on the current filter.
- * Sets the `products` ref to the fetched data and sorts them.
+ * Sets the products ref to the fetched data and sorts them.
  */
 const fetchProducts = async () => {
     loading.value = true;
@@ -139,4 +139,3 @@ img {
     }
 }
 </style>
-

@@ -7,7 +7,6 @@ import { setTheme, getTheme } from '../localstorage';
 const store = useStore();
 const theme = ref(store.theme);
 
-
 const toggleTheme = () => {
     const newTheme = theme.value === 'light' ? 'dark' : 'light';
     theme.value = newTheme;
@@ -15,7 +14,6 @@ const toggleTheme = () => {
     setTheme('theme', newTheme);
     document.documentElement.className = newTheme + '-theme';
 };
-
 
 onMounted(() => {
     const savedTheme = getTheme('theme') || 'light';
@@ -27,40 +25,30 @@ onMounted(() => {
 
 <template>
   <div :class="theme + '-theme'">
-   
+      <Layout />
       <router-view />
       <button @click="toggleTheme" class="theme-button">Toggle Theme</button>
   </div>
 </template>
 
 <style scoped>
-
-router-link {
-  text-decoration: none;
-  color: var(--text-color);
-}
-
-router-link:hover {
-  text-decoration: underline;
-}
-
-
 .theme-button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  background-color: var(--button-bg-color);
-  color: var(--text-color);
+  background-color: #ff6f00; 
+  color: #ffffff;
   cursor: pointer;
   transition: background-color 0.25s, border-color 0.25s;
-  position:fixed;
+  position: fixed;
   bottom: 2vw;
   left: 2vw;
 }
 
 .theme-button:hover {
-  background-color: var(--button-hover-bg-color);
+  background-color: #e65c00; 
 }
 </style>
+

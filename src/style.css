@@ -45,7 +45,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  color: #ffffff;
+  color: #FF4500;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -71,12 +71,10 @@ button:focus-visible {
 }
 
 
-.light-theme button {
-  background-color: #f9f9f9;
-  color: #1a1a1a;
+.cart {
+  background-color: #8A2BE2;
 }
 
-.dark-theme button {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
+.wishlist {
+  background-color: #007BFF;
 }
